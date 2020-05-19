@@ -3,6 +3,8 @@ import com.sun.istack.NotNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +20,17 @@ public class PersonInfo {
     private int age;
 
     private int parentId;
+
+    @Transient
+    public List<PersonInfo> children;
+
+//    public List<PersonInfo> getChildren() {
+//        return children;
+//    }
+//
+//    public void setChildren(List<PersonInfo> children) {
+//        this.children = children;
+//    }
 
     public long getID() {
         return ID;
@@ -69,5 +82,21 @@ public class PersonInfo {
 //    public void setChildren(List<PersonInfo> children) {
 //        this.children = children;
 //    }
+
+    public void addChild(PersonInfo node){
+        if(children==null) {
+            children = new ArrayList<>();
+        }
+        children.add(node);
+    }
+
+    public boolean hasChild(PersonInfo node){
+        if(node.children.isEmpty()){
+            return false;
+        }
+        else return true;
+    }
+
+
 
 }

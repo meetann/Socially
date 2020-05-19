@@ -2,16 +2,14 @@ package com.io.socially.Controller;
 
 
 import com.io.socially.Repository.PersonRepository;
-import com.io.socially.model.Person;
 import com.io.socially.model.PersonInfo;
+import com.io.socially.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RestController
 //@CrossOrigin("*")
@@ -20,7 +18,7 @@ public class PersonController {
 
     @Autowired
     PersonRepository personRepository;
-
+    PersonService personService = new PersonService();
     ResponseEntity responseEntity;
 
     @PostMapping("/create")
@@ -37,18 +35,46 @@ public class PersonController {
     @GetMapping("/getAll")
     public ResponseEntity<List<PersonInfo>> getAllInfo(){
         List<PersonInfo> personInfoList = new ArrayList<>();
-        List<Person> personList = new ArrayList<>();
+        List<PersonInfo> resultList = new ArrayList<>();
 
-        try{
+//        try{
             personInfoList = personRepository.findAll();
-            if(personInfoList.isEmpty()){
-                return new ResponseEntity<>(personInfoList,HttpStatus.NO_CONTENT);
+
+            for(PersonInfo p : personInfoList){
+                if(p.getParentId()==0) {
+                    personService.setChildren(p, personInfoList);
+                    resultList.add(p);
+                }
             }
-            return new ResponseEntity<>(personInfoList, HttpStatus.OK);
+            if(personInfoList.isEmpty()){
+                return new ResponseEntity<>(resultList,HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(resultList, HttpStatus.OK);
+//        }
+//        catch (Exception e){
+//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+    }
+
+    @GetMapping("/getByParentId/{parentId}")
+    public ResponseEntity<List<PersonInfo>> getByParentId(@PathVariable int parentId){
+        List<PersonInfo> personInfoList = new ArrayList<>();
+        try {
+            personInfoList = personRepository.findAll();
+            List<PersonInfo> parentList = new ArrayList<>();
+            for(PersonInfo p : personInfoList){
+//                System.out.println(p.getName());
+                if(p.getParentId()==parentId){
+                    personService.setChildren(p, personInfoList);
+                    parentList.add(p);
+            }
+            }
+            return new ResponseEntity<>(parentList, HttpStatus.OK) ;
         }
         catch (Exception e){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
 
