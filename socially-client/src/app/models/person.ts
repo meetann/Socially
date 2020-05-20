@@ -8,6 +8,6 @@ export class Person{
     name: string;
     age: number;
     parentId: number;
-    children: Array<Object>;
+    children: Person[];
 
 }

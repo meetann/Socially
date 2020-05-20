@@ -5,9 +5,17 @@
 #mat-dialog{
     display: none;
 }
-
 .example-button-container {
     display: flex;
     justify-content: center;
     width: 120px;
   }
+  .example-tree-invisible {
+    display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  
+    list-style-type: none;
+}
