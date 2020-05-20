@@ -1,0 +1,13 @@
+.example-card {
+    max-width: 100px;
+    border-radius: 50%;
+  }
+#mat-dialog{
+    display: none;
+}
+
+.example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
