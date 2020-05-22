@@ -32,6 +32,28 @@ public class PersonController {
         }
     }
 
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<List<PersonInfo>> getById(@PathVariable int id){
+        List<PersonInfo> personInfoList = new ArrayList<>();
+        try {
+            personInfoList = personRepository.findAll();
+            List<PersonInfo> parentList = new ArrayList<>();
+            for(PersonInfo p : personInfoList){
+//                System.out.println(p.getName());
+                if(p.getID()==id){
+                    personService.setChildren(p, personInfoList);
+                    parentList.add(p);
+                }
+            }
+            return new ResponseEntity<>(parentList, HttpStatus.OK) ;
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
     @GetMapping("/getAll")
     public ResponseEntity<List<PersonInfo>> getAllInfo(){
         List<PersonInfo> personInfoList = new ArrayList<>();

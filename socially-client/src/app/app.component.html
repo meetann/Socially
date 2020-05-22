@@ -1,16 +1,25 @@
-<mat-toolbar>
+<mat-toolbar id="tool-bar">
     <mat-icon style="margin-right: 1%;">group</mat-icon>
-    <span id="heading">Socially</span>
+    <span id="heading" [routerLink]="['/home']">Socially</span>
     <span class="filler"></span>
 
-    <form class="example-form">
+    <!-- <form class="example-form">
         <mat-form-field class="example-full-width" appearance="standard">
             <mat-label>Search</mat-label>
-            <input type="text" matInput placeholder="parentId">
-            <mat-icon matSuffix>search</mat-icon>
+            <input class="search-input" type="text" matInput placeholder="parentId"[(ngModel)]="parentId" [ngModelOptions]="{standalone: true}">
+            <button mat-icon-button (click)="onSearch()"><mat-icon matSuffix>search</mat-icon></button>  
         </mat-form-field>
-    </form>
+    </form> -->
+
+    <form class="example-form">
+        <input class="search-input" type="search" placeholder="parentId" [(ngModel)]="parentId" name="parentId">
+        <mat-icon matSuffix class="fa" (click)="onSearch()">search</mat-icon>
+      </form>
 
 </mat-toolbar>
-
+<div class="warning">
+    <strong>Note!</strong> Click expand icon to view children &  plus icon to add a child.
+  </div>
+<div class="container">
 <router-outlet></router-outlet>
+</div>

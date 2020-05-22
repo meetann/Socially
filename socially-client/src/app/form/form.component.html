@@ -1,12 +1,17 @@
 <div class="example-container">
+  <form>
     <mat-form-field appearance="fill">
-      <mat-label>Name</mat-label>
-      <input matInput  required>
+      <mat-label class="text">Name</mat-label>
+      <input matInput required [(ngModel)]="Name" name="personName">
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill">
-        <mat-label>Age</mat-label>
-        <input matInput  required>
+        <mat-label class="text">Age</mat-label>
+        <input matInput [(ngModel)]="Age" name="personAge" required>
       </mat-form-field>
+      <br>
+      <div *ngIf="showError" style="color: red;">Age cannot Exceed parent's age </div>
+      <input type="submit" value="Add Child" id="submit-button" (click)="addChild()">
+    </form>
   </div>
   

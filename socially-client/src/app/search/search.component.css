@@ -1,17 +1,3 @@
-.heading-text{
-  color: aliceblue;
-  padding-top: 1%;
-  padding-left: 1.5%;
-}
-
-.new-parent-button{
-  color: antiquewhite;
-  margin: 1%;
-}
-.new-parent-button:hover{
-  cursor: pointer;
-}
-
 .example-card {
     max-width: 100px;
     border-radius: 50%;
