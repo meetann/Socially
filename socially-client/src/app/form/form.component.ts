@@ -29,12 +29,16 @@ addChild(){
  var personInfo={
    name:"",
    age:0,
-   parentId:0
+   parentId:0,
+   path:null
  };
   personInfo.name=this.Name;
   personInfo.age=this.Age;
 if(this.data==undefined || this.data==0){
   personInfo.parentId=0;
+  // this.data.path = this.data.id.toString();
+  // personInfo.path = this.data.id.toString();
+  // console.log(this.data.path);
   this.dataService.addPersonData(personInfo);
   this.dialogRef.close();
 }
@@ -46,6 +50,8 @@ else
     this.parentAge=res[0].age;
     if(this.parentAge>personInfo.age){
       this.showError=false;
+      // this.data.path.concat(this.data.path, "->", this.data.id.toString())
+      // console.log(this.data.path)
       this.dataService.addPersonData(personInfo);
       // this.home.setNodeData();
       this.dialogRef.close();

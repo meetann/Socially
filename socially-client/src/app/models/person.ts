@@ -9,5 +9,6 @@ export class Person{
     age: number;
     parentId: number;
     children: Person[];
+    path: string;
 
 }

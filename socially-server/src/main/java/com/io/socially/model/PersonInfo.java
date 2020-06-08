@@ -21,6 +21,24 @@ public class PersonInfo {
 
     private int parentId;
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    private String path;
+
+    public List<PersonInfo> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<PersonInfo> children) {
+        this.children = children;
+    }
+
     @Transient
     public List<PersonInfo> children;
 
